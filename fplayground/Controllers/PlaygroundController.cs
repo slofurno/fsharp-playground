@@ -3,9 +3,9 @@ using MvcSample.Web.Models;
 using System.Diagnostics;
 using System.IO;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using CrockSharp;
+using curl_sharp;
 
 namespace MvcSample.Web
 {
@@ -14,11 +14,9 @@ namespace MvcSample.Web
     {
         [HttpPost("playground/github")]
         public async Task<IActionResult> Github(string accessCode){
-            var client = new HttpClient();
-            var response = await client.PostAsync("https://github.com/login/oauth/access_token?client_id=e802f1474d79b005649f&client_secret=e03abf5e8203dac0dc91ebba899f3bd4b4d6664a&code="+accessCode,new StringContent(""));
             
-            var content = await response.Content.ReadAsStringAsync();
-            return new ObjectResult(content);
+            var res = await CurlClient.Post("https://github.com/login/oauth/access_token?client_id=e802f1474d79b005649f&client_secret=e03abf5e8203dac0dc91ebba899f3bd4b4d6664a&code="+accessCode,"");
+            return new ObjectResult(res);
         }
         
         [Route("playground/{hash?}")]
