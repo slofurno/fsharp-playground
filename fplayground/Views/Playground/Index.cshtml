@@ -1,0 +1,62 @@
+@using MvcSample.Web.Models
+@model User
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+    string helloClass = null;
+}
+
+<div class="row">
+      
+<h2>the fsharp playground</h2>
+    
+<input id="compile" class="btn btn-default" type="button" value="Run">
+<input id="share" class="btn btn-default" type="button" value="Share">
+
+<textarea id="input" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:250px;width:100%" wrap="off">@Model.Name</textarea>
+<textarea id="output" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:150px;width:100%" wrap="off"></textarea>
+
+</div>
+<script>
+
+    var input = document.getElementById("input");
+    var compile = document.getElementById("compile");
+    var output = document.getElementById("output");
+    var share = document.getElementById("share");
+    
+    compile.onclick=function(e){
+      var content = input.value;
+      console.log(content);
+      
+      var client = new XMLHttpRequest();
+      
+      client.onload=function(e){
+          
+          output.value = this.response;
+      };
+      
+      client.open("POST", "/playground/compile");
+      client.setRequestHeader("Content-Type","application/json");
+      
+      var command = {Line:content};      
+      client.send(JSON.stringify(command));
+    }; 
+    
+    share.onclick=function(e){
+      var content = input.value;
+      
+      var client = new XMLHttpRequest();
+      
+      client.onload=function(e){
+          var hash = this.response;
+          history.replaceState(null, null, "/playground/"+hash);
+      };
+      
+      client.open("POST", "/playground/share");
+      client.setRequestHeader("Content-Type","application/json");
+      
+      var command = {Line:content};      
+      client.send(JSON.stringify(command));
+    }; 
+    
+</script>
