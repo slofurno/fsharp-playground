@@ -12,6 +12,7 @@
     
 <input id="compile" class="btn btn-default" type="button" value="Run">
 <input id="share" class="btn btn-default" type="button" value="Share">
+<input id="login" class="btn btn-default" type="button" value="Login via Github">
 
 <textarea id="input" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:250px;width:100%" wrap="off">@Model.Name</textarea>
 <textarea id="output" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:150px;width:100%" wrap="off"></textarea>
@@ -23,6 +24,58 @@
     var compile = document.getElementById("compile");
     var output = document.getElementById("output");
     var share = document.getElementById("share");
+    
+    function mapQueryString(s){
+          return s.split('&')
+      .map(function(kvp){
+            return kvp.split('=');   
+      }).reduce(function(sum,current){
+            var key = current[0];
+            var value = current[1];
+            sum[key] = value;
+            return sum;
+      },{});
+    }
+    
+    var qs = mapQueryString(location.search.substr(1));
+    
+    login.onclick=function(e){
+      location.assign("https://github.com/login/oauth/authorize?client_id=e802f1474d79b005649f");
+    };
+    
+    var code = qs["code"];
+    
+    if (code!==undefined){
+          
+          var client = new XMLHttpRequest();
+          
+          client.onload = function(e){
+                
+                console.log(this.response);
+                /*
+                var rqs = mapQueryString(this.response);
+                var token = rqs["access_token"];
+                
+                var client = new XMLHttpRequest();
+                
+                client.onload=function(e){
+                  console.log(JSON.parse(this.response));    
+                };
+                
+                client.open("GET","https://api.github.com/user?access_token="+token);
+                client.setRequestHeader("Content-Type","application/json");
+                client.send();
+                */
+                
+          };
+          
+          client.open("POST","/playground/github?accessCode="+code);
+          client.setRequestHeader('Content-Type', 'application/json');
+          client.send();
+          
+          
+          
+    }
     
     compile.onclick=function(e){
       var content = input.value;

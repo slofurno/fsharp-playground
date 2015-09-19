@@ -3,6 +3,8 @@ using MvcSample.Web.Models;
 using System.Diagnostics;
 using System.IO;
 using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using CrockSharp;
 
 namespace MvcSample.Web
@@ -10,6 +12,15 @@ namespace MvcSample.Web
     
     public class PlaygroundController : Controller
     {
+        [HttpPost("playground/github")]
+        public async Task<IActionResult> Github(string accessCode){
+            var client = new HttpClient();
+            var response = await client.PostAsync("https://github.com/login/oauth/access_token?client_id=e802f1474d79b005649f&client_secret=e03abf5e8203dac0dc91ebba899f3bd4b4d6664a&code="+accessCode,new StringContent(""));
+            
+            var content = await response.Content.ReadAsStringAsync();
+            return new ObjectResult(content);
+        }
+        
         [Route("playground/{hash?}")]
        //[HttpGet("{playground/{hash:string}")]
         public IActionResult Index(string hash)
