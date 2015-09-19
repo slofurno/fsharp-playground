@@ -17,7 +17,7 @@
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
         "Microsoft.Framework.Logging.Console": "1.0.0-beta7",
 		"CrockSharp": "0.9.5",
-		"Microsoft.Net.Http.Client":"1.0.0-beta6"
+		"Microsoft.Net.Http.Client":"1.0.0-beta7-10104"
     },
     "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5001",
@@ -29,7 +29,7 @@
 				"CrockSharp": "0.9.5"
 			},
 			 "frameworkAssemblies": {
-				"Microsoft.Net.Http.Client":"1.0.0-beta6"
+				
 			 }			
 		},
          "dnxcore50": { 
@@ -37,7 +37,7 @@
 				"CrockSharp": "0.9.5"
 			},
 			"frameworkAssemblies": {
-				"Microsoft.Net.Http.Client":"1.0.0-beta6"
+			
 			}	
 		}
     }
