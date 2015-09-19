@@ -15,7 +15,7 @@ namespace MvcSample.Web
         [HttpPost("playground/github")]
         public async Task<IActionResult> Github(string accessCode){
             
-            var res = await CurlClient.Post("https://github.com/login/oauth/access_token?client_id=e802f1474d79b005649f&client_secret=e03abf5e8203dac0dc91ebba899f3bd4b4d6664a&code="+accessCode,"");
+            var res = await CurlClient.Curl("-X POST https://github.com/login/oauth/access_token?client_id=e802f1474d79b005649f&client_secret=e03abf5e8203dac0dc91ebba899f3bd4b4d6664a&code="+accessCode);
             return new ObjectResult(res);
         }
         
