@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System;
 using System.Threading.Tasks;
-using CrockSharp;
-using curl_sharp;
 using System.Linq;
 using System.Collections.Generic;
-using MvcSample.Web.Models;
+
+using CrockSharp;
+using curl_sharp;
 
 namespace MvcSample.Web
 {

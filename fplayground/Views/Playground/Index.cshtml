@@ -10,20 +10,27 @@
       
 <h2>the fsharp playground</h2>
     
-<input id="compile" class="btn btn-default" type="button" value="Run">
-<input id="share" class="btn btn-default" type="button" value="Share">
-<input id="login" class="btn btn-default" type="button" value="Login via Github">
+
 
 <div>
-      <div style="width:500px;display:inline-block">
-<textarea id="input" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:250px;width:100%" wrap="off">@Model.Content</textarea>
-<textarea id="output" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:150px;width:100%" wrap="off"></textarea>
+      <div class="col-sm-8">
+            <div class="row">
+                  <input id="compile" class="btn btn-default" type="button" value="Run">
+                  <input id="share" class="btn btn-default" type="button" value="Share">
+                  <input id="login" class="btn btn-default" type="button" value="Login via Github">
+            </div>
+            <div class="row">
+                  <textarea id="input" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:250px;width:100%" wrap="off">@Model.Content</textarea>
+                  <textarea id="output" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:150px;width:100%" wrap="off"></textarea>
+      
+            </div>
       </div>
-      <div style="width:150px;display:inline-block">
-            <ul>
+      <div class="col-sm-4">
+            
+            <ul style="margin-top:40px;">
                   @foreach (var item in Model.RecentHashes)
                   {
-                  <li>@item</li>
+                  <li><a href="/playground/@(item)">@item</a></li>
                   }
             </ul>
       </div>
