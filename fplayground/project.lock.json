@@ -12,7 +12,7 @@
           "lib/dnx451/CrockSharp.dll": {}
         }
       },
-      "CurlSharp/0.6.1": {
+      "CurlSharp/0.6.2": {
         "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-beta7": {
@@ -1487,7 +1487,7 @@
           "lib/dnxcore50/CrockSharp.dll": {}
         }
       },
-      "CurlSharp/0.6.1": {
+      "CurlSharp/0.6.2": {
         "type": "package",
         "compile": {
           "lib/dnxcore50/curl-sharp.dll": {}
@@ -3854,12 +3854,12 @@
         "lib/dnxcore50/CrockSharp.xml"
       ]
     },
-    "CurlSharp/0.6.1": {
+    "CurlSharp/0.6.2": {
       "type": "package",
-      "sha512": "UwXUZoewY6l066EZ3CSZoNS4MiMNOFKTfBusjXo3DbSfsswak+78pwrLwFTaNHVB1VFeXJgEpc1+o7PZRzMO6Q==",
+      "sha512": "HO0IHXWHKj8omf7VANyQQx2QUM9VsfatwqQuxbWhixNhFtuFf1goV+CKkjuqHCtyXKIvyl+aNpB0Ylz5PIx/Tw==",
       "files": [
-        "CurlSharp.0.6.1.nupkg",
-        "CurlSharp.0.6.1.nupkg.sha512",
+        "CurlSharp.0.6.2.nupkg",
+        "CurlSharp.0.6.2.nupkg.sha512",
         "CurlSharp.nuspec",
         "lib/dnxcore50/curl-sharp.dll",
         "lib/dnxcore50/curl-sharp.xml"
@@ -7207,7 +7207,7 @@
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta7",
       "Microsoft.Framework.Logging.Console >= 1.0.0-beta7",
       "CrockSharp >= 0.9.5",
-      "CurlSharp >= 0.6.1"
+      "CurlSharp >= 0.6.2"
     ],
     "DNX,Version=v4.5.1": [
       "CrockSharp >= 0.9.5"

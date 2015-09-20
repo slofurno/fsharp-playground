@@ -6,6 +6,9 @@ using System;
 using System.Threading.Tasks;
 using CrockSharp;
 using curl_sharp;
+using System.Linq;
+using System.Collections.Generic;
+using MvcSample.Web.Models;
 
 namespace MvcSample.Web
 {
@@ -24,16 +27,22 @@ namespace MvcSample.Web
         public IActionResult Index(string hash)
         {
             
-            if (hash==null){
-                return View(CreateUser(""));
-            }
+            string content = "";
             
-            if (!Directory.Exists("saved/"+hash)){
-                return View(CreateUser(""));
+            var dirs =
+                from d in Directory.EnumerateDirectories("saved")
+                select d.Split(new[] { '/', '\\' }).Last();
+                
+            if (hash!=null && dirs.Contains(hash)){
+                content = System.IO.File.ReadAllText("saved/"+hash+"/saved.txt");
             }
+                    
+            var vm = new PlaygroundViewModel(){ 
+                RecentHashes = dirs,
+                Content=content
+            };
             
-            var saved = System.IO.File.ReadAllText("saved/"+hash+"/saved.txt");
-            return View(CreateUser(saved));
+            return View(vm);
         }
 
         private User CreateUser(string name)
@@ -127,4 +136,6 @@ namespace MvcSample.Web
     public class Command{
         public string Line { get; set; }
     }
+    
+
 }

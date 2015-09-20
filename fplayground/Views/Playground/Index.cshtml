@@ -1,5 +1,5 @@
 @using MvcSample.Web.Models
-@model User
+@model PlaygroundViewModel
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
@@ -14,8 +14,20 @@
 <input id="share" class="btn btn-default" type="button" value="Share">
 <input id="login" class="btn btn-default" type="button" value="Login via Github">
 
-<textarea id="input" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:250px;width:100%" wrap="off">@Model.Name</textarea>
+<div>
+      <div style="width:500px;display:inline-block">
+<textarea id="input" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:250px;width:100%" wrap="off">@Model.Content</textarea>
 <textarea id="output" tabindex="0" spellcheck="false" autocapitalize="off" autocorrect="off" style="background-color:cornflowerblue;height:150px;width:100%" wrap="off"></textarea>
+      </div>
+      <div style="width:150px;display:inline-block">
+            <ul>
+                  @foreach (var item in Model.RecentHashes)
+                  {
+                  <li>@item</li>
+                  }
+            </ul>
+      </div>
+</div>
 
 </div>
 <script>
@@ -52,7 +64,7 @@
           client.onload = function(e){
                 
                 console.log(this.response);
-                /*
+                
                 var rqs = mapQueryString(this.response);
                 var token = rqs["access_token"];
                 
@@ -65,7 +77,7 @@
                 client.open("GET","https://api.github.com/user?access_token="+token);
                 client.setRequestHeader("Content-Type","application/json");
                 client.send();
-                */
+                
                 
           };
           
