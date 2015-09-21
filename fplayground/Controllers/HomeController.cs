@@ -1,24 +1,28 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNet.Mvc;
 using MvcSample.Web.Models;
 
 namespace MvcSample.Web
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private MvcSample.Web.DataContext dataContext = new MvcSample.Web.DataContext();
+        
+        [Route("/{user?}")]
+        public IActionResult Index(string user)
         {
-            return View(CreateUser());
+            
+            Console.WriteLine("USERNAME: "+user);
+            
+            var results = new List<Fsharp>();
+            
+            if (user!=null){
+                results.AddRange(dataContext.GetByOwner(user));
+            }
+            
+            return View(results);
         }
 
-        public User CreateUser()
-        {
-            User user = new User()
-            {
-                Name = "My name",
-                Address = "My address"
-            };
-
-            return user;
-        }
     }
 }

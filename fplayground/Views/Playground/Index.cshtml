@@ -1,5 +1,5 @@
 @using MvcSample.Web.Models
-@model PlaygroundViewModel
+@model Fsharp
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
@@ -27,12 +27,7 @@
       </div>
       <div class="col-sm-4">
             
-            <ul style="margin-top:40px;">
-                  @foreach (var item in Model.RecentHashes)
-                  {
-                  <li><a href="/playground/@(item)">@item</a></li>
-                  }
-            </ul>
+   
       </div>
 </div>
 
@@ -43,6 +38,7 @@
     var compile = document.getElementById("compile");
     var output = document.getElementById("output");
     var share = document.getElementById("share");
+    var _userName = "slofurno";
     
     function mapQueryString(s){
           return s.split('&')
@@ -78,7 +74,10 @@
                 var client = new XMLHttpRequest();
                 
                 client.onload=function(e){
-                  console.log(JSON.parse(this.response));    
+                      
+                  var github = JSON.parse(this.response);
+                  _userName = github.Login;
+                  console.log(github);    
                 };
                 
                 client.open("GET","https://api.github.com/user?access_token="+token);
@@ -127,7 +126,7 @@
       client.open("POST", "/playground/share");
       client.setRequestHeader("Content-Type","application/json");
       
-      var command = {Line:content};      
+      var command = {Line:content,Owner:_userName};      
       client.send(JSON.stringify(command));
     }; 
     

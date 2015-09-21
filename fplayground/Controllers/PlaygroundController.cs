@@ -6,7 +6,6 @@ using System;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
-
 using CrockSharp;
 using curl_sharp;
 
@@ -15,6 +14,9 @@ namespace MvcSample.Web
     
     public class PlaygroundController : Controller
     {
+        
+        private MvcSample.Web.DataContext dataContext = new MvcSample.Web.DataContext();
+        
         [HttpPost("playground/github")]
         public async Task<IActionResult> Github(string accessCode){
             
@@ -26,7 +28,19 @@ namespace MvcSample.Web
        //[HttpGet("{playground/{hash:string}")]
         public IActionResult Index(string hash)
         {
+            var result = new Fsharp();
             
+            if (!string.IsNullOrEmpty(hash)){
+                var match = dataContext.GetByHash(hash);
+                if (match!=null){
+                    result = match;
+                }
+            }
+            
+            return View(result);
+            
+            
+            /*
             string content = "";
             
             var dirs =
@@ -43,6 +57,7 @@ namespace MvcSample.Web
             };
             
             return View(vm);
+            */
         }
 
         private User CreateUser(string name)
@@ -65,20 +80,15 @@ namespace MvcSample.Web
             random.NextBytes(bytes);
             
             var encoded = CrockSharp.Crock32.Encode(bytes);
-
-            var dir = "saved/"+encoded;
             
-            Directory.CreateDirectory(dir);
-
-            using(var fs = System.IO.File.Create(dir+"/saved.txt"))
-            using(var writer = new StreamWriter(fs))
-            using(var sr = new StringReader(command.Line)){
-                
-                string line;
-                while((line=sr.ReadLine())!=null){
-                    writer.WriteLine(line);
-                }
-            }
+            var fsharp = new Fsharp(){
+                Hash = encoded,
+                Owner = command.Owner,
+                Content = command.Line
+            };
+            
+            dataContext.Save(fsharp);
+           
             
             return new ObjectResult(encoded);
         }
@@ -135,6 +145,7 @@ namespace MvcSample.Web
     
     public class Command{
         public string Line { get; set; }
+        public string Owner { get; set; }
     }
     
 
