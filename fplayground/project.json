@@ -26,7 +26,7 @@
     "frameworks": {
          "dnx451": {
 			"dependencies": {
-				"CrockSharp": "0.9.5"
+				
 			},
 			 "frameworkAssemblies": {
 				
@@ -34,7 +34,7 @@
 		},
          "dnxcore50": { 
 			"dependencies": {
-				"CrockSharp": "0.9.5"
+				
 			},
 			"frameworkAssemblies": {
 			
