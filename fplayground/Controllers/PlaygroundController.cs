@@ -108,7 +108,7 @@ namespace MvcSample.Web
             //startInfo.Arguments = "--nologo";
             
             startInfo.FileName = "scala";
-            startInfo.Arguments = "-e " + command.Line;
+            startInfo.Arguments = "-e " + "\"" + command.Line + "\"";
             //scala -e "$(cat test.scala)"
 
             
