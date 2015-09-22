@@ -106,8 +106,8 @@ namespace MvcSample.Web
             //startInfo.FileName = "C:/Program Files (x86)/Microsoft SDKs/F#/4.0/Framework/v4.0/fsi.exe";
             //startInfo.FileName = "fsharpi";
             //startInfo.Arguments = "--nologo";
-            
-            var content = command.Line.Replace("\"","\\\"").Replace("\'","\\\'").Replace("$","\\$").Replace("!","\\!");
+            //.Replace("\'","\\\'")
+            var content = command.Line.Replace("\"","\\\"").Replace("$","\\$").Replace("!","\\!");
             
             //var args = "-e " + "\"$(echo " + command.Line + ")\"";
 
