@@ -107,8 +107,12 @@ namespace MvcSample.Web
             //startInfo.FileName = "fsharpi";
             //startInfo.Arguments = "--nologo";
             
+            var args = "-e " + "\"$(echo " + command.Line + ")\"";
+            
+            Console.WriteLine(args);
+            
             startInfo.FileName = "scala";
-            startInfo.Arguments = "-e " + "\"$(echo " + command.Line + ")\"";
+            startInfo.Arguments = args;
             //scala -e "$(cat test.scala)"
 
             
