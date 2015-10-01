@@ -103,21 +103,18 @@ namespace MvcSample.Web
             }
             
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            //startInfo.FileName = "C:/Program Files (x86)/Microsoft SDKs/F#/4.0/Framework/v4.0/fsi.exe";
-            //startInfo.FileName = "fsharpi";
-            //startInfo.Arguments = "--nologo";
+            
+            startInfo.FileName = "fsharpi";
+            startInfo.Arguments = "--nologo";
             //.Replace("\'","\\\'")
             var content = command.Line.Replace("\"","\\\"").Replace("$","\\$").Replace("!","\\!");
             
             //var args = "-e " + "\"$(echo " + command.Line + ")\"";
-
-            var args = "-e \""+content+"\"";
+            //var args = "-e \""+content+"\"";
             
-            startInfo.FileName = "scala";
-            startInfo.Arguments = args;
-            //scala -e "$(cat test.scala)"
-
-            
+            //startInfo.FileName = "scala";
+            //startInfo.Arguments = args;
+        
             startInfo.RedirectStandardInput = true;
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
@@ -127,7 +124,7 @@ namespace MvcSample.Web
             var reader = process.StandardOutput;
             var writer = process.StandardInput;
             
-            /*
+            
             using(var sr = new StringReader(command.Line)){
                 
                 string line;
@@ -138,7 +135,7 @@ namespace MvcSample.Web
             
             writer.WriteLine(";;");
             writer.WriteLine("#quit;;");
-            */
+            
             string output;
             string response="";
             
