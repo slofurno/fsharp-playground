@@ -5,7 +5,7 @@ using System.Threading.Tasks.Dataflow;
 using System.Diagnostics;
 using System.IO;
 
-odels
+namespace MvcSample.Web.Models
 {
 	public class FsharpRequest{
 		
