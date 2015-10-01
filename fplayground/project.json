@@ -16,6 +16,7 @@
         "Microsoft.AspNet.Server.IIS": "1.0.0-beta7",
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
         "Microsoft.Framework.Logging.Console": "1.0.0-beta7",
+        "System.Threading.Tasks.Dataflow": "4.5.26-beta-23225",
 		"CrockSharp": "0.9.5",
 		"CurlSharp": "0.6.2"
     },

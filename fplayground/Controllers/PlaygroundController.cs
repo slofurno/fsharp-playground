@@ -8,8 +8,11 @@ using System.Linq;
 using System.Collections.Generic;
 using CrockSharp;
 using curl_sharp;
+using System.Collections.Concurrent;
+using System.Threading.Tasks.Dataflow;
 
 namespace MvcSample.Web
+
 {
     
     public class PlaygroundController : Controller
@@ -94,7 +97,7 @@ namespace MvcSample.Web
         }
         
         [HttpPost("playground/compile")]
-        public IActionResult Compile([FromBody]Command command)
+        public async Task<IActionResult> Compile([FromBody]Command command)
         {
             
             if (command == null)
@@ -102,51 +105,11 @@ namespace MvcSample.Web
                 return HttpBadRequest();
             }
             
-            ProcessStartInfo startInfo = new ProcessStartInfo();
+            var request = new FsharpRequest(){ Body=command.Line };
             
-            startInfo.FileName = "fsharpi";
-            startInfo.Arguments = "--nologo";
-            //.Replace("\'","\\\'")
-            var content = command.Line.Replace("\"","\\\"").Replace("$","\\$").Replace("!","\\!");
+            await FsharpWorker.requestQueue.SendAsync(request);
             
-            //var args = "-e " + "\"$(echo " + command.Line + ")\"";
-            //var args = "-e \""+content+"\"";
-            
-            //startInfo.FileName = "scala";
-            //startInfo.Arguments = args;
-        
-            startInfo.RedirectStandardInput = true;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.UseShellExecute = false;
-
-            var process = Process.Start(startInfo);
-
-            var reader = process.StandardOutput;
-            var writer = process.StandardInput;
-            
-            
-            using(var sr = new StringReader(command.Line)){
-                
-                string line;
-                while((line=sr.ReadLine())!=null){
-                    writer.WriteLine(line);
-                }
-            }
-            
-            writer.WriteLine(";;");
-            writer.WriteLine("#quit;;");
-            
-            string output;
-            string response="";
-            
-            while((output = reader.ReadLine())!=null){
-                response+=output;
-                response+="\r\n";
-            }
-            
-            if (!process.WaitForExit(200)){
-                Console.WriteLine("fsharpi process failed to quit in time");
-            }
+            var response = await request.GetResultAsync();
             
             return new ObjectResult(response);
         }
