@@ -76,24 +76,16 @@ namespace MvcSample.Web
         
         [Route("playground/share")]
         [HttpPost]
-        public IActionResult Share([FromBody]Command command){
-            Random random = new Random();
-            
-            var bytes = new byte[10];
-            random.NextBytes(bytes);
-            
-            var encoded = CrockSharp.Crock32.Encode(bytes);
-            
+        public async Task<IActionResult> Share([FromBody]Command command){
+                        
             var fsharp = new Fsharp(){
-                Hash = encoded,
                 Owner = command.Owner,
                 Content = command.Line
             };
             
-            dataContext.Save(fsharp);
-           
+            var saved = await dataContext.SaveAsync(fsharp);
             
-            return new ObjectResult(encoded);
+            return new ObjectResult(saved.Hash);
         }
         
         [HttpPost("playground/compile")]
